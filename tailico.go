@@ -4,7 +4,6 @@ package main
 
 import (
 	i "chris-mulvi-data/tailico/internal"
-	"os"
 )
 
 func main() {
@@ -20,22 +19,18 @@ func main() {
 		return
 	}
 
-	file, err := os.Open(opts.File)
-	if err != nil {
-		i.OutputError(err.Error())
-		return
-	}
-	defer file.Close()
-
-	// TODO: pint last N lines
-	lines, offset, err := i.ReadNLines(file, opts.LineCount)
-	for _, line := range lines {
-		// TODO: call formatting functions here
-		i.OutputMsg(line)
-	}
+	// file, err := os.Open(opts.File)
+	// lines, _, err := i.ReadNLines(file, opts.LineCount)
+	// for _, line := range lines {
+	// 	i.OutputLine(&line)
+	// }
+	// file.Close()
 
 	if opts.Tail {
-		i.Tail(file, offset)
+		err := i.Tail(opts.File)
+		if err != nil {
+			i.OutputError(err.Error())
+		}
 	}
 
 }

@@ -23,8 +23,12 @@ func FindTimestampInString(str *string) string {
 // getFormats gets the timestamp formats map
 func getFormats() map[string]string {
 
-	var foremats = make(map[string]string)
-	foremats["yyyy-mm-dd hh:mm:ss"] = ""
+	// formats must me listed in order of most specific to least specific
+	var formats = make(map[string]string)
+	formats["yyyy-mm-dd hh:mm:ss.SSS"] = "\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}:\\d{2}\\.\\d{3}"
+	formats["yyyy-mm-dd hh:mm:ss,SSS"] = "\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}:\\d{2},\\d{3}"
+	formats["yyyy-mm-dd hh:mm:ss"] = "\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}:\\d{2}"
+	formats["HH:mm:ss,SSS"] = "\\d{2}:\\d{2}:\\d{2},\\d{3}"
 
-	return foremats
+	return formats
 }

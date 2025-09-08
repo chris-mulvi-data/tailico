@@ -1,7 +1,7 @@
 package test
 
 import (
-	"chris-mulvi-data/tailico/internal"
+	i "chris-mulvi-data/tailico/internal"
 	"os"
 	"testing"
 )
@@ -14,6 +14,5 @@ func TestTail(t *testing.T) {
 		t.Error(err)
 	}
 
-	var offset int64 = 104
-	internal.Tail(file, offset)
+	i.Tail(file)
 }
