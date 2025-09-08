@@ -29,7 +29,6 @@ func Tail(filename string) error {
 			OutputError(err.Error())
 			break
 		}
-
 		// Process the line
 		OutputLine(&line)
 	}

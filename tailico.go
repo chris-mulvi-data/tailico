@@ -4,6 +4,7 @@ package main
 
 import (
 	i "chris-mulvi-data/tailico/internal"
+	"os"
 )
 
 func main() {
@@ -19,12 +20,12 @@ func main() {
 		return
 	}
 
-	// file, err := os.Open(opts.File)
-	// lines, _, err := i.ReadNLines(file, opts.LineCount)
-	// for _, line := range lines {
-	// 	i.OutputLine(&line)
-	// }
-	// file.Close()
+	file, err := os.Open(opts.File)
+	lines, _, err := i.ReadNLines(file, opts.LineCount)
+	for _, line := range lines {
+		i.OutputLine(&line)
+	}
+	file.Close()
 
 	if opts.Tail {
 		err := i.Tail(opts.File)

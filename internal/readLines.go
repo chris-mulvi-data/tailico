@@ -21,7 +21,8 @@ func ReadNLines(file *os.File, numLines int) ([]string, int64, error) {
 	var lines []string
 	r.Do(func(a any) {
 		if a != nil {
-			lines = append(lines, a.(string))
+			aString := a.(string) + "\n"
+			lines = append(lines, aString)
 		}
 	})
 

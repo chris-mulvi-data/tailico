@@ -14,6 +14,7 @@ var logTypePatterns = []*regexp.Regexp{
 	regexp.MustCompile(`(DEBUG)\s+`),
 	regexp.MustCompile(`(INFO)\s+`),
 	regexp.MustCompile(`(TRACE)\s+`),
+	regexp.MustCompile(`(CONFIG)\s+`),
 }
 
 func OutputError(msg string) {
@@ -25,17 +26,6 @@ func OutputMsg(msg string) {
 }
 
 func OutputLine(line *string) {
-
-	timestamp := FindTimestampInString(line)
-
-	if timestamp != "" {
-		// compile regex pattern using the identified timestamp
-		re := regexp.MustCompile(timestamp)
-		// colorize the timestamp
-		timestamp = fmt.Sprintf("%s%s%s", Cyan, timestamp, Default)
-		// replace the timestamp in the line with the colorized version
-		*line = re.ReplaceAllString(*line, timestamp)
-	}
 
 	ColorizeByType(line)
 	fmt.Print(*line)
@@ -56,8 +46,7 @@ func ColorizeByType(line *string) {
 		}
 
 		color := getColor(match)
-		match = fmt.Sprintf("%s%s%s ", color, match, Default)
-		*line = pattern.ReplaceAllString(*line, match)
+		*line = fmt.Sprintf("%s%s%s ", color, *line, Default)
 		return
 	}
 }
@@ -79,6 +68,8 @@ func getColor(str string) Color {
 		return Blue
 	case "trace":
 		return Gray
+	case "config":
+		return Green
 	}
 
 	return Default
